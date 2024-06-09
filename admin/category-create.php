@@ -1,7 +1,7 @@
 <?php
 include 'header.php';
 $erorr = '';
-if(isset($_POST['submit'])){
+if(isset($_POST['name'])){
     $name = $_POST['name'];
     $name = $_POST['status'];
     if($name == ''){
@@ -55,7 +55,7 @@ if(isset($_POST['submit'])){
         
     </div>
 
-    <button type="submit" name="submit" class="btn btn-primary">Thêm mới</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
     
     <a href="category.php" type="button" class="btn btn-danger">Quay lại</a>
     

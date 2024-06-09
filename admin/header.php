@@ -1,4 +1,6 @@
-<?php require '../config.php'; 
+<?php
+ob_start(); 
+require '../config.php'; 
 if (!isset($_SESSION['admin_login'])) {
     header('location: login.php');
 } else {
