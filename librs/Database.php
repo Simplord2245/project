@@ -30,14 +30,14 @@ class Database {
     }
     public static function leftJoin($field = "*",$pk,$fk,$joinString){
         $_this = new static;
-        $mangKey = explode(',',$field);
+        $mangKey = explode(', ',$field);
         $fieldString = '';
         foreach($mangKey as $val){
             $fieldString .= "$_this->table.$val, ";
         }
         $fieldString .= $joinString;
 
-        $_this->sql = "select $field from $_this->table left join $_this->join_table on $_this->table.$pk = $_this->join_table.$fk ";
+        $_this->sql = "select $fieldString from $_this->table left join $_this->join_table on $_this->table.$pk = $_this->join_table.$fk ";
         return $_this;
     }
     public static function rightJoin($field = "*",$pk,$fk,$joinString){
@@ -49,7 +49,7 @@ class Database {
         }
         $fieldString .= $joinString;
 
-        $_this->sql = "select $field from $_this->table right join $_this->join_table on $_this->table.id = $_this->join_table.$fk ";
+        $_this->sql = "select $fieldString from $_this->table right join $_this->join_table on $_this->table.$pk = $_this->join_table.$fk ";
         return $_this;
     }
     public function limit($limit = 25) {
@@ -78,11 +78,11 @@ class Database {
             $field = $args[0];
             $op = $args[1];
             $val = $args[2];
-            $this->sql .= "where $this->table.$field $op '$val'";
+            $this->sql .= " where $this->table.$field $op '$val'";
         } else if($n == 2){
             $field = $args[0];
             $val = $args[1];
-            $this->sql .= "where $this->table.$field = $val";
+            $this->sql .= " where $this->table.$field = '$val'";
         }
             return $this;
     }
@@ -118,7 +118,7 @@ class Database {
             $fieldGroup .= "$this->table.$val, ";
         }
         $fieldGroup = rtrim($fieldGroup, ', ');
-        $this->sql .= " group by $fieldGroup";        
+        $this->sql .= " group by $fieldGroup";   
         return $this;
     }
     public function find(){
@@ -146,11 +146,11 @@ class Database {
     }
     public static function update($id,$data){
         $_this = new static;
-        $sql = "update from $_this->table set ";
+        $sql = "update $_this->table set ";
         foreach ($data as $key => $value){
             $sql .= " $key = '$value', ";
         }
-        $sql = rtrim(', ',$sql);
+        $sql = rtrim($sql, ', ');
         $sql .= "where id = $id";
         return $_this->conn->query($sql);
     }

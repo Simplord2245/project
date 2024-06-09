@@ -2,7 +2,7 @@
 <?php 
     include 'header.php';
     $key = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-    $category = Categories::join('id, name, status','id','category_id','COUNT(products.category_id) as total')->groupBy('id,name,status')->get();
+    $category = Categories::leftJoin('id, name, status','id','category_id','COUNT(products.category_id) as total')->groupBy('id,name,status')->get();
 
     if($key) {
         $category = Categories::join('id, name, status','id','category_id','COUNT(products.category_id) as total')->where('name','like','%'.$key.'%')->groupBy('id,name,status')->get();
@@ -52,8 +52,8 @@
                         <td><?php echo $cat->total;?></td>
                         <td class="text-right">
                             
-                            <a href="category-edit.php" class="btn btn-primary">Sửa</a>
-                            <a href="category-delete.php" class="btn btn-danger">Xoá</a>
+                            <a href="category-edit.php?id=<?php echo $cat->id;?>" class="btn btn-primary">Sửa</a>
+                            <a onclick="return confirm('Bạn có muốn xoá không?')" href="category-delete.php?id=<?php echo $cat->id;?>" class="btn btn-danger">Xoá</a>
                             
                         </td>
                     </tr>
