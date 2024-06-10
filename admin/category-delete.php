@@ -6,7 +6,7 @@ if(empty($_GET['id'])){
 } else {
     $cat = Categories::leftJoin('id','id','category_id','count(products.category_id) as total')->where('id',$_GET['id'])->groupBy('id')->find();
     if($cat->total > 0){
-        $error = 'Danh mục đan có sản phẩm, không thể xoá';
+        $error = 'Danh mục đang có sản phẩm, không thể xoá';
     } else {
         Categories::delete($_GET['id']);
         header('location: category.php');

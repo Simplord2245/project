@@ -6,6 +6,7 @@ $n = $n > 0 ? $n : strpos($file_path,'index.php');
 $app_folder =  substr($file_path, 0, $n);
 
 define('APP_PATH',$app_folder);
+define('UPLOAD_PATH',$app_folder.'assets/img/product');
 define('HOST','localhost');
 define('USER','root');
 define('PASSWORD','');

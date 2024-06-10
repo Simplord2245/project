@@ -1,6 +1,9 @@
 <?php
 include 'header.php';
 $cat = Categories::select()->where('id',$_GET['id'])->find();
+if (empty($_GET['id'])) {
+    $error = 'Bạn chưa chọn sản phẩm để chỉnh sửa';
+} else {
 $error = '';
 if(isset($_POST['name'])){
     $name = $_POST['name'];
@@ -10,6 +13,7 @@ if(isset($_POST['name'])){
     if(!$error && Categories::update($_GET['id'],$_POST)){
     header('location: category.php');
     }
+}
 }
 ?>
 <!-- =============================================== -->

@@ -1,6 +1,10 @@
 <?php
 include 'header.php';
     $cats = Categories::select('id,name')->get();
+    $prod = Products::select()->where('id',$_GET['id'])->find();
+    if (empty($_GET['id'])) {
+        $error = 'Bạn chưa chọn sản phẩm để chỉnh sửa';
+    } else {
 $errors = [];
 if(isset($_POST['name'])){
     $name = $_POST['name'];
@@ -8,7 +12,10 @@ if(isset($_POST['name'])){
     $sale = $_POST['sale'] ? $_POST['sale'] : 0;
     $descriptions = $_POST['descriptions'];
     $category_id = $_POST['category_id'];
+
     $image = File::upload('image');
+    $image = $image ? $image : $prod->image;
+
     $_POST['image'] = $image;
 
     if($name == ''){
@@ -27,9 +34,10 @@ if(isset($_POST['name'])){
     } else if($sale && $sale > 100){
         $errors['sale'] = 'Giá khuyến mãi không được vượt quá 100';
     }
-    if(!$errors && Products::create($_POST)){
+    if(!$errors && Products::update($_GET['id'],$_POST)){
         header('location: products.php');
     }
+}
 }
 ?>
 
@@ -48,17 +56,17 @@ if(isset($_POST['name'])){
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label for="">Tên sản phẩm</label>
-                                        <input type="text" class="form-control" name="name" id=""
-                                            placeholder="Nhập tên sản phẩm">
-                                            <?php if(isset($errors['name'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['name'];?></div>
-                                                <?php endif ?>
+                                        <input type="text" value="<?php echo $prod->name;?>" class="form-control"
+                                            name="name" id="" placeholder="Nhập tên sản phẩm">
+                                        <?php if(isset($errors['name'])) : ?>
+                                        <div class="help-block" style="color:red;"><?php echo $errors['name'];?></div>
+                                        <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Mô tả</label>
                                         <textarea name="descriptions" id="" cols="30" rows="10"
                                             style="width: 1052px; height: 244px;"
-                                            placeholder="Nhập mô tả sản phẩm"></textarea>
+                                            placeholder="Nhập mô tả sản phẩm"><?php echo $prod->descriptions;?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -74,63 +82,68 @@ if(isset($_POST['name'])){
                                                 required="required">
                                                 <option value="">Chọn loại sản phẩm</option>
                                                 <?php foreach($cats as $cat) : ?>
-                                                <option value="<?php echo $cat->id;?>">
+                                                <option <?php echo $cat->id == $prod->category_id ? 'selected' : '';?>
+                                                    value="<?php echo $cat->id;?>">
                                                     <?php echo $cat->name; ?>
                                                     <?php endforeach ?>
                                                 </option>
                                             </select>
                                             <?php if(isset($errors['category_id'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['category_id'];?></div>
-                                                <?php endif ?>
+                                            <div class="help-block" style="color:red;">
+                                                <?php echo $errors['category_id'];?></div>
+                                            <?php endif ?>
                                         </div>
-                                        <label for="">Trạng thái</label>
                                         <div class="radio">
-                                            <label>
+                                            <label style="margin-right: 5px;">
                                                 <input type="radio" name="status" id="input" value="1"
-                                                    checked="checked">
+                                                    <?php echo $prod->status == 1 ? 'checked': '';?>>
                                                 Hiển thị
                                             </label>
                                             <label>
-                                                <input type="radio" name="status" id="input" value="0">
+                                                <input type="radio" name="status" id="input" value="0"
+                                                    <?php echo $prod->status == 0 ? 'checked': '';?>>
                                                 Tạm ẩn
                                             </label>
                                         </div>
+                                    </div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Giá</label>
-                                        <input type="text" class="form-control" name="price" id=""
-                                            placeholder="Nhập giá">
-                                            <?php if(isset($errors['price'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['price'];?></div>
-                                                <?php endif ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Giá khuyến mãi</label>
-                                        <input type="text" class="form-control" name="sale" id=""
-                                            placeholder="Nhập giá khuyến mãi">
-                                            <?php if(isset($errors['sale'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['sale'];?></div>
-                                                <?php endif ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Ảnh</label>
-                                        <input type="file" name="image">
-                                    </div>
-                                    <a href="products.php" type="button" class="btn btn-danger"><i class="fas fa-arrow-left-long"></i>Quay lại</a>
-                                    <button type="submit" style="margin-left: 310px;" class="btn btn-primary"><i class="fa fa-plus"></i>Thêm
-                                        mới</button>
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Giá</label>
+                                    <input type="text" value="<?php echo $prod->price;?>" class="form-control"
+                                        name="price" id="" placeholder="Nhập giá">
+                                    <?php if(isset($errors['price'])) : ?>
+                                    <div class="help-block" style="color:red;"><?php echo $errors['price'];?></div>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Giá khuyến mãi</label>
+                                    <input type="text" value="<?php echo $prod->sale;?>" class="form-control"
+                                        name="sale" id="" placeholder="Nhập giá khuyến mãi">
+                                    <?php if(isset($errors['sale'])) : ?>
+                                    <div class="help-block" style="color:red;"><?php echo $errors['sale'];?></div>
+                                    <?php endif ?>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Ảnh</label>
+                                    <input type="file" name="image">
+                                    <img src="../assets/img/product/<?php echo $prod->image;?>" alt="" width="30%">
+                                </div>
+                                <a href="products.php" type="button" class="btn btn-danger"><i
+                                        class="fas fa-arrow-left-long"></i>Quay lại</a>
+                                <button type="submit" style="margin-left: 310px;" class="btn btn-primary"><i
+                                        class="fa fa-save"></i>Lưu lại</button>
                             </div>
-
                         </div>
+
                     </div>
-                </form>
-
             </div>
-        </div>
+            </form>
 
-    </section>
+        </div>
+</div>
+
+</section>
 </div>
 <?php
 include 'footer.php';
