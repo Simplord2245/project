@@ -1,25 +1,26 @@
 <?php 
     include 'header.php';
+    $cats = Categories::select('id,name')->get();
     $key = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+    $cat_id = isset($_GET['cat_id']) ? $_GET['cat_id'] : 0;
     $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->orderby('id','asc')->get();
 
-    if($key) {
+    if ($key && !$cat_id) {
         $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->groupBy('id, name, status, price, sale, image, descriptions')->get();
+    } else if (!$key && $cat_id) {
+        $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
+    } else if ($key && $cat_id) {
+        $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->andWhere('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
+
     }
 ?>
-<!-- =============================================== -->
-
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>Quản lý sản phẩm </h1>
     </section>
 
-    <!-- Main content -->
     <section class="content">
 
-        <!-- Default box -->
         <div class="box">
             <div class="box-body">
 
@@ -29,9 +30,16 @@
                         <label class="sr-only" for="">label</label>
                         <input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm">
                     </div>
-
-
-
+                    <div class="form-group">
+                        <select name="cat_id" id="category_id" class="form-control" required="required">
+                            <option value="">Chọn danh mục sản phẩm</option>
+                            <?php foreach($cats as $cat) : ?>
+                            <option value="<?php echo $cat->id;?>">
+                                <?php echo $cat->name; ?>
+                                <?php endforeach ?>
+                            </option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     <a href="products-create.php" class="btn btn-primary pull-right"><i class="fa fa-plus"></i>Thêm
                         mới</a>
@@ -77,10 +85,7 @@
             </div>
 
         </div>
-        <!-- /.box -->
 
     </section>
-    <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
 <?php include 'footer.php';?>

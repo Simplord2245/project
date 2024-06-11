@@ -72,7 +72,7 @@ if(isset($_POST['name'])){
                                         <div class="form-group">
                                             <select name="category_id" id="category_id" class="form-control"
                                                 required="required">
-                                                <option value="">Chọn loại sản phẩm</option>
+                                                <option value="">Chọn danh mục sản phẩm</option>
                                                 <?php foreach($cats as $cat) : ?>
                                                 <option value="<?php echo $cat->id;?>">
                                                     <?php echo $cat->name; ?>

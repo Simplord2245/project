@@ -86,6 +86,21 @@ class Database {
         }
             return $this;
     }
+    public function andWhere(){
+        $args = func_get_args();
+        $n = count($args);
+        if($n == 3){
+            $field = $args[0];
+            $op = $args[1];
+            $val = $args[2];
+            $this->sql .= " and $this->table.$field $op '$val'";
+        } else if($n == 2){
+            $field = $args[0];
+            $val = $args[1];
+            $this->sql .= " and $this->table.$field = '$val'";
+        }
+            return $this;
+    }
     public function whereIn(){
         $args = func_get_args();
             $field = $args[0];
