@@ -9,8 +9,6 @@ if (!isset($_SESSION['admin_login'])) {
 $link = 'assets/dist/img/';
 $image = $admin->avatar;
 $ava = $link.$image;
-// echo '<pre>';
-// print_r($ava);
 ?>
 <!DOCTYPE html>
 <html>
@@ -179,8 +177,8 @@ $ava = $link.$image;
         
        
         <li>
-          <a href="#">
-            <i class="fa fa-th"></i> <span>Widgets</span>
+          <a href="http://localhost:8080/radios/">
+            <i class="fa fa-th"></i> <span>Radios</span>
             <small class="label pull-right bg-green">Hot</small>
           </a>
         </li>
