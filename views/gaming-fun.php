@@ -1,5 +1,6 @@
 <?php
-$gaming = Products::select_pro(6);
+$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$gaming = Products::select($field_sale)->where('category_id',6)->get();
 ?>
             <!-- breadcrumb start -->
             <section class="breadcrumb-area">
@@ -120,7 +121,7 @@ $gaming = Products::select_pro(6);
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$<?php echo $game->price;?></span><span class="old">$<?php echo $game->sale;?></span></h4>
+                                                <h4 class="product__price"><span class="new">$<?php echo $game->price_sale;?></span><span class="old">$<?php echo $game->price;?></span></h4>
                                                 <p class="product-description"><?php echo $game->descriptions;?></p>
                                             </div>
                                         </li>

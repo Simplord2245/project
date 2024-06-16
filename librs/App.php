@@ -28,7 +28,13 @@ class App {
         if (count($this->urls) == 0 || $this->urls[0] == '') {
             include $this->root.'/views/home.php';
         } else {
-            $view = $this->root.'/views/'.$this->urls[0].'.php';
+            $path = $this->urls[0];
+            $pos = strpos($this->urls[0] , '?');
+            if($pos > 0){
+                $path = substr($this->urls[0],0, $pos);
+            }
+
+            $view = $this->root.'/views/'.$path.'.php';
             if (file_exists($view)) {
                 include $view;
             } else {

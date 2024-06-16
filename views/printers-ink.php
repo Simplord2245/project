@@ -1,5 +1,6 @@
 <?php
-$printer = Products::select_pro(5);
+$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$printer = Products::select($field_sale)->where('category_id',5)->get();
 ?>
             <!-- breadcrumb start -->
             <section class="breadcrumb-area">

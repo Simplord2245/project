@@ -149,10 +149,10 @@ if (!isset($_SESSION['customer_login'])) {
                                 </a>
                             </div>
                             <ul class="category ul_li">
-                                <li><a href="<?php $app->url('laptops-computers');?>"><span><img src="assets/img/icon/hc_01.svg" alt=""></span>Laptops & Computers</a></li>
-                                <li><a href="<?php $app->url('cc-tv-camera');?>"><span><img src="assets/img/icon/hc_02.svg" alt=""></span>CC Tv & Camera</a></li>
+                                <li><a href="<?php $app->url('laptops');?>"><span><img src="assets/img/icon/hc_01.svg" alt=""></span>Laptops</a></li>
+                                <li><a href="<?php $app->url('camera');?>"><span><img src="assets/img/icon/hc_02.svg" alt=""></span>Camera</a></li>
                                 <li><a href="<?php $app->url('home-equipment');?>"><span><img src="assets/img/icon/hc_03.svg" alt=""></span>Home Equipment</a></li>
-                                <li><a href="<?php $app->url('tv-audios');?>"><span><img src="assets/img/icon/hc_04.svg" alt=""></span>Tv & Audios</a></li>
+                                <li><a href="<?php $app->url('tivi');?>"><span><img src="assets/img/icon/hc_04.svg" alt=""></span>Tivi</a></li>
                                 <li><a href="<?php $app->url('printers-ink');?>"><span><img src="assets/img/icon/hc_05.svg" alt=""></span>Printers & Ink</a></li>
                                 <li><a href="<?php $app->url('gaming-fun');?>"><span><img src="assets/img/icon/hc_06.svg" alt=""></span>Gaming & Fun</a></li>
                             </ul>

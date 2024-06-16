@@ -1,5 +1,6 @@
 <?php
-$tivi = Products::select_pro(4);
+$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$camera = Products::select($field_sale)->where('category_id',2)->get();
 ?>
             <!-- breadcrumb start -->
             <section class="breadcrumb-area">
@@ -7,7 +8,7 @@ $tivi = Products::select_pro(4);
                     <div class="radios-breadcrumb breadcrumbs">
                         <ul class="list-unstyled d-flex align-items-center">
                             <li class="radiosbcrumb-item radiosbcrumb-begin">
-                                <a href="<?php $this->url('');?>"><span>tv</span></a>
+                                <a href="<?php $this->url('');?>"><span>Home</span></a>
                             </li>
                             <li class="radiosbcrumb-item radiosbcrumb-end">
                                 <span>Shop</span>
@@ -94,10 +95,10 @@ $tivi = Products::select_pro(4);
                                 </div>
                                 <div class="woocommerce-content-inner">
                                     <ul class="products three-column clearfix">
-                                        <?php foreach($tivi as $tv) :?>
+                                        <?php foreach($camera as $cam) :?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$tv->image);?>" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$cam->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -115,13 +116,13 @@ $tivi = Products::select_pro(4);
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($tv->name);?></a></h2>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($cam->name);?></a></h2>
                                                 <span class="product__available">Available: <span>334</span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$<?php echo $tv->price;?></span><span class="old">$<?php echo $tv->sale;?></span></h4>
-                                                <p class="product-description"><?php echo $tv->descriptions;?></p>
+                                                <h4 class="product__price"><span class="new">$<?php echo $cam->price_sale;?></span><span class="old">$<?php echo $cam->price;?></span></h4>
+                                                <p class="product-description"><?php echo $cam->descriptions;?></p>
                                             </div>
                                         </li>
                                         <?php endforeach ?>
