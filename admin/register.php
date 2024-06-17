@@ -1,12 +1,11 @@
 <?php
 require '../config.php';
 $erorrs = [];
-if(isset($_POST['submit'])){
+if(isset($_POST['name'])){
   $name = $_POST['name'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];
   $password = $_POST['password'];
-  $re_password = $_POST['re_password'];
   if(empty($name)){
     $erorrs = 'Tên tài khoản không được để trống';
   } else {
@@ -41,9 +40,8 @@ if(isset($_POST['submit'])){
   if($password != $re_password){
     $erorrs = 'Mật khẩu không khớp';
   }
-  if(empty($erorrs)){
-    Customer::create("name=>$name,email=>$email,phone=>$phone,password=>$password");
-    header('location:login.php');
+  if(!$erorrs && Customer::create($_POST)){
+    header('location: login.php');
   } 
 }
   ?>
@@ -98,11 +96,15 @@ if(isset($_POST['submit'])){
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="address" placeholder="Address">
+        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
         <input type="password" class="form-control" name="password" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="re-password" placeholder="Retype password">
+        <input type="password" class="form-control" name="re_password" placeholder="Confirm password">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
       <div class="row">
@@ -137,7 +139,7 @@ if(isset($_POST['submit'])){
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
+      increaseArea: '20%' 
     });
   });
 </script>

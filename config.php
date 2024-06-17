@@ -7,6 +7,7 @@ $app_folder =  substr($file_path, 0, $n);
 
 define('APP_PATH',$app_folder);
 define('UPLOAD_PATH',$app_folder.'assets/img/product');
+define('UPLOAD_AVA_PATH',$app_folder.'assets/img/avatar');
 define('HOST','localhost');
 define('USER','root');
 define('PASSWORD','');

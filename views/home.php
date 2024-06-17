@@ -247,7 +247,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                     <span>(126)</span>
                                 </div>
                                 <h3 class="title"><a
-                                        href="<?php $this->url('shop-single');?>?id=<?php echo $re->id;?>"><?php echo $re->name;?></a></h3>
+                                        href="<?php $this->url('shop-single');?>?id=<?php echo $re->id;?>"><?php echo limitString($re->name);?></a></h3>
                                         <?php if($re->sale > 0):?>
                                 <span class="price">( $<?php echo number_format($re->price_sale);?> - <span
                                         class="old-price">$<?php echo number_format($re->price);?></span> )</span>
@@ -285,7 +285,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                     <span>(126)</span>
                                 </div>
                                 <h3 class="title"><a
-                                        href="<?php $this->url('shop-single');?>?id=<?php echo $bestselle->id;?>"><?php echo $bestselle->name;?></a>
+                                        href="<?php $this->url('shop-single');?>?id=<?php echo $bestselle->id;?>"><?php echo limitString($bestselle->name);?></a>
                                 </h3>
                                 <?php if($bestselle->sale > 0):?>
                                 <span class="price">( $<?php echo number_format($bestselle->price_sale);?> - <span
@@ -324,7 +324,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                     <span>(126)</span>
                                 </div>
                                 <h3 class="title"><a
-                                        href="<?php $this->url('shop-single');?>?id=<?php echo $tp->id;?>"><?php echo $tp->name;?></a></h3>
+                                        href="<?php $this->url('shop-single');?>?id=<?php echo $tp->id;?>"><?php echo limitString($tp->name);?></a></h3>
                                         <?php if($tp->sale > 0):?>
                                 <span class="price">( $<?php echo number_format($tp->price_sale);?> - <span
                                         class="old-price">$<?php echo number_format($tp->price);?></span> )</span>
@@ -362,7 +362,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                     <span>(126)</span>
                                 </div>
                                 <h3 class="title"><a
-                                        href="<?php $this->url('shop-single');?>?id=<?php echo $newarrival->id;?>"><?php echo $newarrival->name;?></a>
+                                        href="<?php $this->url('shop-single');?>?id=<?php echo $newarrival->id;?>"><?php echo limitString($newarrival->name);?></a>
                                 </h3>
                                 <?php if($newarrival->sale > 0):?>
                                 <span class="price">( $<?php echo number_format($newarrival->price_sale);?> - <span
@@ -401,7 +401,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                     <span>(126)</span>
                                 </div>
                                 <h3 class="title"><a
-                                        href="<?php $this->url('shop-single');?>?id=<?php echo $toprate->id;?>"><?php echo $toprate->name;?></a></h3>
+                                        href="<?php $this->url('shop-single');?>?id=<?php echo $toprate->id;?>"><?php echo limitString($toprate->name);?></a></h3>
                                         <?php if($toprate->sale > 0):?>
                                 <span class="price">( $<?php echo number_format($toprate->price_sale);?> - <span
                                         class="old-price">$<?php echo number_format($toprate->price);?></span> )</span>

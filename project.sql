@@ -42,7 +42,7 @@ Create table customers
     name varchar(100) NOT NULL,
     email varchar(100) NOT NULL unique,
     phone varchar(23) NOT NULL unique,
-    address varchar(255) NULL,
+    address varchar(255) Not NULL,
     gender tinyint(1) default '1',
     birthday date NOT NULL,
     password varchar(100) NOT NULL,
