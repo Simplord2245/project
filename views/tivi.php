@@ -1,5 +1,5 @@
 <?php
-$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$field_sale = 'id,name,price,sale,image,quantity,sold,price - (price * sale/100) as price_sale';
 $tivi = Products::select($field_sale)->where('category_id',4)->get();
 ?>
             <!-- breadcrumb start -->
@@ -98,7 +98,7 @@ $tivi = Products::select($field_sale)->where('category_id',4)->get();
                                         <?php foreach($tivi as $tv) :?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$tv->image);?>" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>?id=<?php echo $tv->id;?>"><img src="<?php $this->url('assets/img/product/'.$tv->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -116,12 +116,17 @@ $tivi = Products::select($field_sale)->where('category_id',4)->get();
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($tv->name);?></a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>?id=<?php echo $tv->id;?>"><?php echo limitString($tv->name);?></a></h2>
+                                                <span class="product__available">Available: <span><?php echo $tv->quantity;?></span></span>
+                                                <span class="product__available">Sold: <span><?php echo $tv->sold;?></span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$<?php echo $tv->price_sale;?></span><span class="old">$<?php echo $tv->price;?></span></h4>
+                                                <?php if($tv->sale > 0):?>
+                                                <h4 class="product__price"><span class="new">$<?php echo number_format($tv->price_sale);?></span><span class="old">$<?php echo number_format($tv->price);?></span></h4>
+                                                <?php else :?>
+                                                    <h4 class="product__price"><span class="new">$<?php echo number_format($tv->price);?></span>
+                                                <?php endif ?>
                                                 <p class="product-description"><?php echo $tv->descriptions;?></p>
                                             </div>
                                         </li>

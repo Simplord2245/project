@@ -1,4 +1,12 @@
-
+<?php
+$field_sale = 'id,name,price,sale,image,quantity,sold,descriptions,price - (price * sale/100) as price_sale';
+$cats = Categories::select('id,name')->where('status',1)->get();
+$product = Products::select($field_sale)->orderby('','rand()')->limit(12)->get();
+$id = !empty($_GET['id']) ? (int)($_GET['id']) : 0;
+if($id){
+    $product = Products::select($field_sale)->where('category_id',$id)->limit(12)->get();
+    }
+?>
             <!-- breadcrumb start -->
             <section class="breadcrumb-area">
                 <div class="container">
@@ -92,9 +100,10 @@
                                 </div>
                                 <div class="woocommerce-content-inner">
                                     <ul class="products three-column clearfix">
+                                        <?php foreach($product as $prod):?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_165.png" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$prod->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -112,338 +121,20 @@
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">JBL Tune 510BT Wireless On-Ear</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($prod->name);?></a></h2>
+                                                <span class="product__available">Available: <span><?php echo $prod->quantity;?></span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
+                                                <?php if($prod->sale > 0):?>
+                                                <h4 class="product__price"><span class="new">$<?php echo number_format($prod->price_sale);?></span><span class="old">$<?php echo number_format($prod->price);?></span></h4>
+                                                <?php else :?>
+                                                    <h4 class="product__price"><span class="new">$<?php echo number_format($prod->price);?></span>
+                                                <?php endif ?>
+                                                <p class="product-description"><?php echo $prod->descriptions;?></p>
                                             </div>
                                         </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_166.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Apple iPhone 12 Pro, 128GB, Pacific</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                            <span class="product__badge color-2"><span>New</span></span>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_167.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Portable 2TB External Hard Drive</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_168.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Fire HD 10 tablet, 10.1″, 1080p Full HD,</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_169.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Galaxy S20 FE 5G Cell Phone, Factory</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_170.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Galaxy S20 FE 5G Cell Phone, Factory</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                            <span class="product__badge color-2"><span>New</span></span>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_171.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Aroma Housewares 4-Cups 1Qt. Rice &</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                            <span class="product__badge color-2"><span>New</span></span>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_172.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Chromebook Flip Laptop, 14″ Full HD</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_173.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Sceptre 24″ Professional Thin 75Hz 1080p</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_174.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Acer SB220Q bi 21.5 Inches Full HD</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_175.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">DEWALT 20V MAX* XR Oscillating Tool Kit</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                            <span class="product__badge color-2"><span>New</span></span>
-                                        </li>
-                                        <li class="product">
-                                            <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="assets/img/product/img_176.png" alt=""></a>
-                                                <ul class="product__action">
-                                                    <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
-                                                    <li><a href="#!"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                        <li><i class="far fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(126) Review</span>
-                                                </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>">Lenovo – Tab P11 Plus – Tablet – 11″ 2K</a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
-                                                <div class="product__progress progress color-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <h4 class="product__price"><span class="new">$30.52</span><span class="old">$28.52</span></h4>
-                                                <p class="product-description">Found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with </p>
-                                            </div>
-                                        </li>
+                                        <?php endforeach ?>
                                     </ul> 
                                 </div>
                                 <div class="pagination_wrap pt-20">
@@ -497,20 +188,16 @@
                                         <span>Category</span>
                                     </h2>
                                    <ul class="widget__category">
-                                        <li><a href="#!">Motorbike parts<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Car parts Name<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Bicycle Parts<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Taxi bike parts<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Double decker bus<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Tractor parts<i class="far fa-chevron-right"></i></a></li>
-                                        <li><a href="#!">Bull Dozer<i class="far fa-chevron-right"></i></a></li>
+                                    <?php foreach($cats as $cat) :?>
+                                        <li><a href="<?php $this->url('shop-left-sidebar')?>?id=<?php echo $cat->id?>"><?php echo $cat->name;?><i class="far fa-chevron-right"></i></a></li>
+                                        <?php endforeach ?>
                                    </ul>
                                 </div>
                                 <div class="widget">
                                     <div class="widget__add">
                                         <div class="content">
                                             <span>Trending</span>
-                                            <h3>2021 <span>Laptop</span> <br> Collection</h3>
+                                            <h3>2024 <span>Laptop</span> <br> Collection</h3>
                                             <a class="thm-btn no-icon" href="#!">
                                                 <span class="btn-wrap"> 
                                                     <span>Buy Now</span>

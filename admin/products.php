@@ -3,14 +3,14 @@
     $cats = Categories::select('id,name')->get();
     $key = isset($_GET['keyword']) ? $_GET['keyword'] : '';
     $cat_id = isset($_GET['cat_id']) ? $_GET['cat_id'] : 0;
-    $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->orderby('id','asc')->get();
+    $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->orderby('id','asc')->get();
 
     if ($key && !$cat_id) {
-        $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->groupBy('id, name, status, price, sale, image, descriptions')->get();
+        $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->groupBy('id, name, status, price, sale, image, descriptions')->get();
     } else if (!$key && $cat_id) {
-        $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
+        $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->where('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
     } else if ($key && $cat_id) {
-        $products = Products::join('id, name, status, price, sale, image, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->andWhere('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
+        $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->andWhere('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
 
     }
 ?>
@@ -54,6 +54,8 @@
                             <th>Trạng thái</th>
                             <th>Giá</th>
                             <th>Giá khuyến mãi</th>
+                            <th>Số lượng</th>
+                            <th>Bán</th>
                             <th>Ảnh</th>
                             <th>Mô tả</th>
                             <th></th>
@@ -68,6 +70,8 @@
                             <td><?php echo $pro->status == 0 ? 'Tạm ẩn':'Hiển thị';?></td>
                             <td><?php echo $pro->price;?></td>
                             <td><?php echo $pro->sale;?></td>
+                            <td><?php echo $pro->quantity;?></td>
+                            <td><?php echo $pro->sold;?></td>
                             <td><img src="../assets/img/product/<?php echo $pro->image;?>" width="40" height="30"></td>
                             <td><?php echo limitString($pro->descriptions,20);?></td>
                             <td class="text-right">

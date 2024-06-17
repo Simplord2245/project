@@ -1,5 +1,5 @@
 <?php
-$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$field_sale = 'id,name,price,sale,image,quantity,sold,price - (price * sale/100) as price_sale';
 $home_equipment = Products::select($field_sale)->where('category_id',3)->get();
 ?>
             <!-- breadcrumb start -->
@@ -98,7 +98,7 @@ $home_equipment = Products::select($field_sale)->where('category_id',3)->get();
                                         <?php foreach($home_equipment as $home) :?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$home->image);?>" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>?id=<?php echo $home->id;?>"><img src="<?php $this->url('assets/img/product/'.$home->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -116,12 +116,17 @@ $home_equipment = Products::select($field_sale)->where('category_id',3)->get();
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($home->name);?></a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>?id=<?php echo $home->id;?>"><?php echo limitString($home->name);?></a></h2>
+                                                <span class="product__available">Available: <span><?php echo $home->quantity;?></span></span>
+                                                <span class="product__available">Sold: <span><?php echo $home->sold;?></span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$<?php echo $home->price_sale;?></span><span class="old">$<?php echo $home->price;?></span></h4>
+                                                <?php if($home->sale > 0):?>
+                                                <h4 class="product__price"><span class="new">$<?php echo number_format($home->price_sale);?></span><span class="old">$<?php echo number_format($home->price);?></span></h4>
+                                                <?php else :?>
+                                                    <h4 class="product__price"><span class="new">$<?php echo number_format($home->price);?></span>
+                                                <?php endif ?>
                                                 <p class="product-description"><?php echo $home->descriptions;?></p>
                                             </div>
                                         </li>

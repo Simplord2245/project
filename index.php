@@ -4,7 +4,7 @@ if (!isset($_SESSION['customer_login'])) {
 } else {
     $user = $_SESSION['customer_login'];
 }
-
+$cats = Categories::select('id,name')->get();
 ?>
 <!doctype html>
 <html lang="zxx">
@@ -80,15 +80,9 @@ if (!isset($_SESSION['customer_login'])) {
 						<div class="select-box">
 							<select id="category" name="category">
 								<option value="">All Categories</option>
-								<option value="4">Summer collections</option>
-								<option value="5">Breakfast & Dairy</option>
-								<option value="6">Beverage & Drinks</option>
-								<option value="7">Cocolate Box</option>
-								<option value="8">Dried Food Corner</option>
-								<option value="9">Frozen Foods</option>
-								<option value="10">Baby Food Corner</option>
-								<option value="11">Milk & Juices</option>
-								<option value="12">Organic & Snacks</option>
+                                <?php foreach($cats as $cat) : ?>
+								<option value="<?php echo $cat->id;?>"><?php echo $cat->name;?></option>
+                                <?php endforeach ?>
 							</select>
 						</div>
 						<input type="text" name="search" id="search" placeholder="Search For Products"
@@ -262,7 +256,6 @@ if (!isset($_SESSION['customer_login'])) {
                         <a href="#">Shop</a>
                         <ul class="sub-menu">
                             <li><a href="<?php $app->url('shop-left-sidebar');?>">Shop Left Sidebar</a></li>
-                            <li><a href="<?php $app->url('shop-single');?>">Shop Single</a></li>
                             <li><a href="<?php $app->url('cart');?>">Shop Cart</a></li>
                             <li><a href="<?php $app->url('checkout');?>">Shop Checkout</a></li>
                             <li><a href="<?php $app->url('account');?>">Account</a></li>

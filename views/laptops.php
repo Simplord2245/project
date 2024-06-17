@@ -1,5 +1,5 @@
 <?php
-$field_sale = 'id,name,price,sale,image,price - (price * sale/100) as price_sale';
+$field_sale = 'id,name,price,sale,image,quantity,sold,price - (price * sale/100) as price_sale';
 $laptop = Products::select($field_sale)->where('category_id',1)->get();
 ?>
             <!-- breadcrumb start -->
@@ -98,7 +98,7 @@ $laptop = Products::select($field_sale)->where('category_id',1)->get();
                                         <?php foreach($laptop as $lap) :?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$lap->image);?>" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>?id=<?php echo $lap->id;?>"><img src="<?php $this->url('assets/img/product/'.$lap->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -116,12 +116,17 @@ $laptop = Products::select($field_sale)->where('category_id',1)->get();
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($lap->name);?></a></h2>
-                                                <span class="product__available">Available: <span>334</span></span>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>?id=<?php echo $lap->id;?>"><?php echo limitString($lap->name);?></a></h2>
+                                                <span class="product__available">Available: <span><?php echo $lap->quantity;?></span></span>
+                                                <span class="product__available">Sold: <span><?php echo $lap->sold;?></span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="product__price"><span class="new">$<?php echo $lap->price_sale;?></span><span class="old">$<?php echo $lap->price;?></span></h4>
+                                                <?php if($lap->sale > 0):?>
+                                                <h4 class="product__price"><span class="new">$<?php echo number_format($lap->price_sale);?></span><span class="old">$<?php echo number_format($lap->price);?></span></h4>
+                                                <?php else :?>
+                                                    <h4 class="product__price"><span class="new">$<?php echo number_format($lap->price);?></span>
+                                                <?php endif ?>
                                                 <p class="product-description"><?php echo $lap->descriptions;?></p>
                                             </div>
                                         </li>
