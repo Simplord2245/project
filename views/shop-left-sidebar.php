@@ -169,7 +169,7 @@ if($id){
                                         </form>
                                     </div>
                                 </div>
-                                <div class="widget">
+                                <!-- <div class="widget">
                                     <h2 class="widget__title">
                                         <span>Color</span>
                                     </h2>
@@ -182,7 +182,7 @@ if($id){
                                         <span></span>
                                         <span></span>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="widget">
                                     <h2 class="widget__title">
                                         <span>Category</span>
@@ -211,7 +211,7 @@ if($id){
                                         </div>
                                     </div>
                                 </div>
-                                <div class="widget">
+                                <!-- <div class="widget">
                                     <h2 class="widget__title">
                                         <span>Brands</span>
                                     </h2>
@@ -246,8 +246,8 @@ if($id){
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="widget">
+                                </div> -->
+                                <!-- <div class="widget">
                                     <h2 class="widget__title">
                                         <span>Tags</span>
                                     </h2>
@@ -263,7 +263,7 @@ if($id){
                                         <a href="#!">I phone Pro 12</a>
                                         <a href="#!">poco X3</a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

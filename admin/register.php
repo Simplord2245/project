@@ -5,42 +5,38 @@ if(isset($_POST['name'])){
   $name = $_POST['name'];
   $email = $_POST['email'];
   $phone = $_POST['phone'];
+  $address = $_POST['address'];
   $password = $_POST['password'];
-  if(empty($name)){
-    $erorrs = 'Tên tài khoản không được để trống';
-  } else {
-    if(Customer::checkName($name) > 0){
-      $erorrs = 'Tên tài khoản đã tồn tại';
-    }
+  $re_password = $_POST['re_password'];
+  if($name == ''){
+    $erorrs['name'] = 'Họ và tên không được để trống';
   }
-  if(empty($email)){
-    $erorrs = 'Email không được để trống';
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $errors = 'Email không đúng định dạng';
-  } else {
-    if(Customer::checkName($name) > 0){
-      $erorrs = 'Email đã tồn tại';
-    }
+  if($email == ''){
+    $erorrs['email'] = 'Email không được để trống';
+  } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $errors['email'] = 'Email không đúng định dạng';
   }
-  if(empty($phone)){
-    $erorrs = 'Số điện thoại không được để trống';
+  if($phone == ''){
+    $erorrs['phone'] = 'Số điện thoại không được để trống';
   } elseif (!preg_match('/^[0-9]{10}$/', $phone)) {
       $errors['phone'] = 'Số điện thoại không đúng định dạng';
+  }
+  if($address == ''){
+    $erorrs['address'] = 'Địa chỉ không được để trống';
+  }
+  if($password == ''){
+    $erorrs['password'] = 'Mật khẩu không được để trống';
   } else {
-    if(Customer::checkName($name) > 0){
-      $erorrs = 'Tên tài khoản đã tồn tại';
-    }
+    $_POST['password'] = password_hash($password,PASSWORD_BCRYPT);
   }
-  if(empty($password)){
-    $erorrs = 'Mật khẩu không được để trống';
+  if($re_password == ''){
+    $erorrs['re_password'] = 'Xác nhận mật khẩu không được để trống';
+  } else if($password != $re_password){
+    $erorrs['re_password'] = 'Mật khẩu không khớp';
   }
-  if(empty($re_password)){
-    $erorrs = 'Nhập lại mật khẩu không được để trống';
-  }
-  if($password != $re_password){
-    $erorrs = 'Mật khẩu không khớp';
-  }
-  if(!$erorrs && Customer::create($_POST)){
+  if(!$erorrs){
+    unset($_POST['re_password']);
+    Customer::create($_POST);
     header('location: login.php');
   } 
 }
@@ -67,13 +63,13 @@ if(isset($_POST['name'])){
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="admin/assets/index2.html"><b>Admin</b>PjRed</a>
+    <a href="!#"><b>Admin</b>PjRed</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
-    <form action="admin/assets/index.html" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
     <?php if($erorrs) : ?>
       
       <div class="alert alert-danger">
@@ -97,7 +93,7 @@ if(isset($_POST['name'])){
       </div>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" name="address" placeholder="Address">
-        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+        <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" name="password" placeholder="Password">

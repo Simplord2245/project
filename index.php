@@ -1,9 +1,6 @@
-<?php require 'config.php'; 
-if (!isset($_SESSION['customer_login'])) {
-    header('location: admin/login.php');
-} else {
-    $user = $_SESSION['customer_login'];
-}
+<?php
+ob_start();
+require 'config.php';
 $cats = Categories::select('id,name')->get();
 ?>
 <!doctype html>
@@ -56,7 +53,7 @@ $cats = Categories::select('id,name')->get();
                         </ul>
                         <div class="header__top-right ul_li mt-10">
                             <div class="date">
-                                <i class="fal fa-calendar-alt"></i> Friday, July 27, 2020
+                                <i class="fal fa-calendar-alt"></i> Friday, July 27, 2024
                             </div>
                             <div class="header__social ml-25">
                                 <a href="#!"><i class="fab fa-facebook-f"></i></a>
@@ -124,8 +121,9 @@ $cats = Categories::select('id,name')->get();
                                 <span class="count">0</span>
                             </a>
                         </div>
-                        <div class="cart_btn icon">
-                            <img src="assets/img/icon/shopping_bag.svg" alt="">
+                        <div class="icon">
+                            <a href="<?php $app->url('cart');?>"><img src="assets/img/icon/shopping_bag.svg" alt=""></a>
+                            
                             <span class="count">0</span>
                         </div>
                     </div>
@@ -151,6 +149,26 @@ $cats = Categories::select('id,name')->get();
                                 <li><a href="<?php $app->url('gaming-fun');?>"><span><img src="assets/img/icon/hc_06.svg" alt=""></span>Gaming & Fun</a></li>
                             </ul>
                         </div>
+                        <?php if (Customer::loginInfo()) : ?>
+                        <div class="login-sign-btn">
+                            <a class="thm-btn" href="<?php $app->url('admin/logout.php');?>">
+                                <span class="btn-wrap">
+                                <span>Logout</span>
+                                <span>Logout</span>
+                                </span>
+                            </a>
+                        </div>
+                        <?php else : ?>
+                        <div class="login-sign-btn">
+                            <a class="thm-btn" href="<?php $app->url('admin/login.php');?>">
+                                <span class="btn-wrap">
+                                <span>Login / Sign Up</span>
+                                <span>Login / Sign Up</span>
+                                    
+                                </span>
+                            </a>
+                        </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>

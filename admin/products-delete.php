@@ -4,8 +4,8 @@ $error = '';
 if (empty($_GET['id'])) {
     $error = 'Bạn chưa chọn sản phẩm để xoá';
 } else {
-    // $image = Products::select('image')->where('id',$_GET['id'])->get();
-    // File::unlink($image);
+    $image = Products::select('image')->where('id',$_GET['id'])->find();
+    File::unlink($image->image);
     Products::delete($_GET['id']);
     header('location: products.php');
 }

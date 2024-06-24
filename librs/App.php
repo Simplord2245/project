@@ -21,6 +21,9 @@ class App {
     public function url($path) {
         echo $this->http_host.'/'.$path;
     }
+    public function app_url($path) {
+        return $this->http_host.'/'.$path;
+    }
 
     public function run() {
        

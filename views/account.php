@@ -1,3 +1,10 @@
+ <?php
+ if (!isset($_SESSION['customer_login'])) {
+    header('location: admin/login.php');
+} else {
+  $user = $_SESSION['customer_login'];
+}
+ ?>
  <!-- breadcrumb start -->
             <section class="breadcrumb-area">
                 <div class="container">

@@ -1,29 +1,26 @@
 <?php 
 class Customer extends Database {
     protected $table = 'customers';
+
     public static function checkLogin($email,$pass){
         $_this = new static;
-        $sql = "select * from $_this->table where email = '$email' and password = '$pass'";
+        $sql = "select * from $_this->table where email = '$email'";
         $query = $_this->conn->query($sql);
-        return $query->fetch_object();
+        if($query->num_rows == 1){
+            $obj = $query->fetch_object();
+            if(password_verify($pass,$obj->password)){
+                return $obj;
+            } else {
+                return 'password-not-match';
+            }
+        }
+        return 'email-not-found';
     }
-    public static function checkName($name){
-        $_this = new static;
-        $sql = "select * from $_this->table where name = $name";
-        $query = $_this->conn->query($sql);
-        return $query->fetch_object();
-    }
-    public static function checkEmail($email){
-        $_this = new static;
-        $sql = "select * from $_this->table where email = $email";
-        $query = $_this->conn->query($sql);
-        return $query->fetch_object();
-    }
-    public static function checkPhone($phone){
-        $_this = new static;
-        $sql = "select * from $_this->table where phone = $phone";
-        $query = $_this->conn->query($sql);
-        return $query->fetch_object();
+    public static function loginInfo(){
+        if(!empty($_SESSION['customer_login'])){
+            return $_SESSION['customer_login'];
+        }
+        return null;
     }
 }
 ?>

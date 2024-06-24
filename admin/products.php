@@ -11,7 +11,6 @@
         $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->where('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
     } else if ($key && $cat_id) {
         $products = Products::join('id, name, status, price, sale, image, quantity, sold, descriptions','category_id','id','categories.name as cat_name')->where('name','like','%'.$key.'%')->andWhere('category_id',$cat_id)->groupBy('id, name, status, price, sale, image, descriptions')->get();
-
     }
 ?>
 <div class="content-wrapper">

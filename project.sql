@@ -44,7 +44,7 @@ Create table customers
     phone varchar(23) NOT NULL unique,
     address varchar(255) Not NULL,
     gender tinyint(1) default '1',
-    birthday date NOT NULL,
+    birthday date NULL,
     password varchar(100) NOT NULL,
     avatar varchar(100) NULL,
     last_login date default NOW()
@@ -92,10 +92,10 @@ insert into admins(name,email,password,avatar) values
 ('Mỵ Duy Nguyên','2245n123@gmail.com','Nguyen123','duynguyen.jpg'),
 ('Bùi Long Quân','fanvip.1st@gmail.com','16272029','quanlavie.jpg'),
 ('Bùi Trọng Nghĩa','Nghbui159@gmail.com','Nghiadepchai137','nghiabui.jpg');
-insert into customers(name,email,phone,password,avatar) values
-('User 1','user1@gmail.com','0929384798','123456','avatar.png'),
-('User 2','user2@gmail.com','0929234479','123456','avatar1.png'),
-('User 3','user3@gmail.com','0929354798','123456','avatar2.png');
+insert into customers(name,email,phone,address,password,avatar) values
+('User 1','user1@gmail.com','0929384798','Hà Nội','$2y$10$JLeG5YnEPuznNmvD8faBbuxYoxDeJc.R/B/AGfAPjxFwZ5iAedGc6','avatar.png'),
+('User 2','user2@gmail.com','0929234479','Hải Phòng','$2y$10$JLeG5YnEPuznNmvD8faBbuxYoxDeJc.R/B/AGfAPjxFwZ5iAedGc6','avatar1.png'),
+('User 3','user3@gmail.com','0929354798','Đà Nẵng','$2y$10$JLeG5YnEPuznNmvD8faBbuxYoxDeJc.R/B/AGfAPjxFwZ5iAedGc6','avatar2.png');
 insert into categories(name) values ('Laptop'),('Camera'),('Thết bị gia đình'),('Tivi'),('Máy in'),('Phụ kiện'); 
 insert into products(name,price,sale,image,quantity,sold,descriptions,category_id) values
 ('Camera IP 360 Độ 2MP TIANDY TC-H322N',39,50,'cam1.jpg',250,50,'Camera IP 360 Độ 2MP TIANDY TC-H322N là một sản phẩm camera thông minh với khả năng quan sát toàn cảnh không gian trong nhà cùng độ phân giải cao và nhiều tính năng tiện ích khác, hứa hẹn đây sẽ là trợ thủ đắc lực giúp bạn bảo vệ cho ngôi nhà của mình',2),

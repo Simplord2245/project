@@ -260,7 +260,6 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                 <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
                                 <li><a href="#!"><i class="far fa-heart"></i></a></li>
                             </ul>
-                            <span class="badge-skew">New</span>
                         </div>
                         <?php endforeach ?>
                     </div>
@@ -299,7 +298,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                 <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
                                 <li><a href="#!"><i class="far fa-heart"></i></a></li>
                             </ul>
-                            <span class="badge-skew"><?php echo $bestselle->sale;?>%</span>
+                            <span class="badge-skew" >SALE <?php echo $bestselle->sale;?>%</span>
                         </div>
                         <?php endforeach ?>
                     </div>
@@ -337,7 +336,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                 <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
                                 <li><a href="#!"><i class="far fa-heart"></i></a></li>
                             </ul>
-                            <span class="badge-skew">New</span>
+                            <span class="badge-skew">TOP</span>
                         </div>
                         <?php endforeach ?>
                     </div>
@@ -414,7 +413,7 @@ $prodline2 = Products::select($field_sale)->orderby('id','desc')->get();
                                 <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
                                 <li><a href="#!"><i class="far fa-heart"></i></a></li>
                             </ul>
-                            <span class="badge-skew">New</span>
+                          
                         </div>
                         <?php endforeach ?>
                     </div>
