@@ -103,7 +103,7 @@ if($id){
                                         <?php foreach($product as $prod):?>
                                         <li class="product">
                                             <div class="product-holder">
-                                                <a href="<?php $this->url('shop-single');?>"><img src="<?php $this->url('assets/img/product/'.$prod->image);?>" alt=""></a>
+                                                <a href="<?php $this->url('shop-single');?>?id=<?php echo $prod->id;?>"><img src="<?php $this->url('assets/img/product/'.$prod->image);?>" alt=""></a>
                                                 <ul class="product__action">
                                                     <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
                                                     <li><a href="#!"><i class="far fa-shopping-basket"></i></a></li>
@@ -121,7 +121,7 @@ if($id){
                                                     </ul>
                                                     <span>(126) Review</span>
                                                 </div>
-                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo limitString($prod->name);?></a></h2>
+                                                <h2 class="product__title"><a href="<?php $this->url('shop-single');?>?id=<?php echo $prod->id;?>"><?php echo limitString($prod->name);?></a></h2>
                                                 <span class="product__available">Available: <span><?php echo $prod->quantity;?></span></span>
                                                 <div class="product__progress progress color-primary">
                                                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>

@@ -75,12 +75,22 @@ Create table order_details
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+Create table cart_detail
+(
+    id int primary key auto_increment,
+    customer_id int NOT NULL,
+    product_id int NOT NULL,
+    quantity int NOT NULL,
+    price float NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
 
 Create table ratings
 (
     customer_id int NOT NULL,
     product_id int NOT NULL,
-    start float NOT NULL,
+    star float NOT NULL,
     comments text NOT NULL,
     rating_date date default NOW(),
     status tinyint(1) default '0',

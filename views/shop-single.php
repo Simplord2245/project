@@ -120,10 +120,20 @@ if($id){
                     </div>
 
                     <div class="product-option">
-                        <form class="form">
+                        <form class="d-flex" method="post" action="cart-add">
                             <div class="product-row">
+                                <input type="hidden" name="product_id" value="<?php echo $product->id;?>">
+                                <input type="hidden" name="price" value="<?php echo $product->price_sale;?>">
                                 <div>
-                                    <input class="product-count" type="text" value="1" name="product-count">
+                                    <input class="product-count" type="text" value="1" name="quantity">
+                                </div>
+                                <div class="add-to-cart-btn">
+                                    <button class="thm-btn thm-btn__2 no-icon" type="submit">
+                                        <span class="btn-wrap">
+                                            <span>Add to cart</span>
+                                            <span>Add to cart</span>
+                                        </span>
+                                    </button>
                                 </div>
                                 <div class="add-to-cart-btn">
                                     <button class="thm-btn thm-btn__2 no-icon" type="submit">
@@ -327,7 +337,7 @@ if($id){
                             <?php foreach($relatedproduct as $related):?>
                             <li class="product">
                                 <div class="product-holder">
-                                    <a href="<?php $this->url('shop-single');?>"><img
+                                    <a href="<?php $this->url('shop-single');?>?id=<?php echo $related->id;?>"><img
                                             src="<?php $this->url('assets/img/product/'.$related->image)?>" alt></a>
                                     <ul class="product__action">
                                         <li><a href="#!"><i class="far fa-compress-alt"></i></a></li>
@@ -346,7 +356,7 @@ if($id){
                                         </ul>
                                         <span>(126) Review</span>
                                     </div>
-                                    <h2 class="product__title"><a href="<?php $this->url('shop-single');?>"><?php echo $related->name;?></a></h2>
+                                    <h2 class="product__title"><a href="<?php $this->url('shop-single');?>?id=<?php echo $related->id;?>"><?php echo $related->name;?></a></h2>
                                     <span class="product__available">Available: <span><?php echo $related->quantity;?></span></span>
                                     <div class="product__progress progress color-primary">
                                         <div class="progress-bar" role="progressbar" style="width: 50%"

@@ -124,7 +124,11 @@ $cats = Categories::select('id,name')->get();
                         <div class="icon">
                             <a href="<?php $app->url('cart');?>"><img src="assets/img/icon/shopping_bag.svg" alt=""></a>
                             
-                            <span class="count">0</span>
+                            <span class="count">
+                                <?php            
+                                    echo Cart::totalOders();
+                                ?>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -151,7 +155,7 @@ $cats = Categories::select('id,name')->get();
                         </div>
                         <?php if (Customer::loginInfo()) : ?>
                         <div class="login-sign-btn">
-                            <a class="thm-btn" href="<?php $app->url('admin/logout.php');?>">
+                            <a class="thm-btn" href="<?php $app->url('logout');?>">
                                 <span class="btn-wrap">
                                 <span>Logout</span>
                                 <span>Logout</span>
