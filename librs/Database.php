@@ -157,7 +157,11 @@ class Database {
         $values = array_values($data);
         $values = "'".implode("','",$values)."'";
         $sql = "insert into $_this->table($keys) values ($values)";
-        return $_this->conn->query($sql);
+        if($_this->conn->query($sql)){
+            $last_id = $_this->conn->insert_id;
+            return $last_id;
+        }
+        return false;
     }
     public static function update($id,$data){
         $_this = new static;

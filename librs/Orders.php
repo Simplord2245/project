@@ -1,5 +1,5 @@
 <?php 
 class Orders extends Database {
-    protected $table = 'Orders';
+    protected $table = 'orders';
 }
 ?>

@@ -19,9 +19,9 @@ Create table products
     price float NOT NULL,
     sale float default '0',
     image varchar(100) NOT NULL,
-    quantity int null,
-    sold int null,
-    descriptions text NULL,
+    quantity int default '0',
+    sold int default '0',
+    descriptions text Not null,
     category_id int NOT NULL,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
@@ -57,7 +57,7 @@ Create table orders
     name varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
     phone varchar(23) NOT NULL,
-    address varchar(255) NULL,
+    address varchar(255) not NULL,
     order_date date default NOW(),
     status tinyint(1) default '1',
     order_note varchar(255) NOT NULL,

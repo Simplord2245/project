@@ -115,7 +115,7 @@ $cats = Categories::select('id,name')->get();
                         <div class="icon">
                             <a href="<?php $app->url('account');?>"><img src="assets/img/icon/user.svg" alt=""></a>
                         </div>
-                        <div class="icon wishlist-icon">
+                        <div class="icon">
                             <a href="#!">
                                 <img src="assets/img/icon/heart.svg" alt="">
                                 <span class="count">0</span>

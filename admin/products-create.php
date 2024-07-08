@@ -6,6 +6,7 @@ if(isset($_POST['name'])){
     $name = $_POST['name'];
     $price = $_POST['price'];
     $sale = $_POST['sale'] ? $_POST['sale'] : 0;
+    $quantity = $_POST['quantity'];
     $descriptions = $_POST['descriptions'];
     $category_id = $_POST['category_id'];
     $image = File::upload('image');
@@ -21,6 +22,11 @@ if(isset($_POST['name'])){
     $errors['price'] = 'Giá sản phẩm không được để trống'; 
     } else if(!is_numeric($price)){
         $errors['price'] = 'Giá sản phẩm phải là số';
+    }
+    if($quantity == ''){
+    $errors['quantity'] = 'Số lượng sản phẩm không được để trống'; 
+    } else if(!is_numeric($quantity)){
+        $errors['quantity'] = 'Số lượng sản phẩm phải là số';
     }
     if($sale && !is_numeric($sale)){
         $errors['sale'] = 'Giá khuyến mãi phải là số';
@@ -50,14 +56,14 @@ if(isset($_POST['name'])){
                                         <label for="">Tên sản phẩm</label>
                                         <input type="text" class="form-control" name="name" id=""
                                             placeholder="Nhập tên sản phẩm">
-                                            <?php if(isset($errors['name'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['name'];?></div>
-                                                <?php endif ?>
+                                        <?php if(isset($errors['name'])) : ?>
+                                        <div class="help-block" style="color:red;"><?php echo $errors['name'];?></div>
+                                        <?php endif ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Mô tả</label>
                                         <textarea name="descriptions" id="" cols="30" rows="10"
-                                            style="width: 1052px; height: 244px;"
+                                            style="width: 1050px; height: 318px;"
                                             placeholder="Nhập mô tả sản phẩm"></textarea>
                                     </div>
                                 </div>
@@ -80,8 +86,9 @@ if(isset($_POST['name'])){
                                                 </option>
                                             </select>
                                             <?php if(isset($errors['category_id'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['category_id'];?></div>
-                                                <?php endif ?>
+                                            <div class="help-block" style="color:red;">
+                                                <?php echo $errors['category_id'];?></div>
+                                            <?php endif ?>
                                         </div>
                                         <label for="">Trạng thái</label>
                                         <div class="radio">
@@ -98,33 +105,45 @@ if(isset($_POST['name'])){
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Giá</label>
-                                        <input type="text" class="form-control" name="price" id=""
-                                            placeholder="Nhập giá">
+                                        <label for="">Số lượng</label>
+                                        <input type="text" class="form-control" name="quantity" id=""
+                                            placeholder="Nhập số lượng">
+                                            <?php if(isset($errors['quantity'])) : ?>
+                                            <div class="help-block" style="color:red;"><?php echo $errors['quantity'];?>
+                                            </div>
+                                            <?php endif ?>
+                                        <div class="form-group">
+                                            <label for="">Giá</label>
+                                            <input type="text" class="form-control" name="price" id=""
+                                                placeholder="Nhập giá">
                                             <?php if(isset($errors['price'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['price'];?></div>
-                                                <?php endif ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Giá khuyến mãi</label>
-                                        <input type="text" class="form-control" name="sale" id=""
-                                            placeholder="Nhập giá khuyến mãi">
+                                            <div class="help-block" style="color:red;"><?php echo $errors['price'];?>
+                                            </div>
+                                            <?php endif ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Giá khuyến mãi</label>
+                                            <input type="text" class="form-control" name="sale" id=""
+                                                placeholder="Nhập giá khuyến mãi">
                                             <?php if(isset($errors['sale'])) : ?>
-                                                <div class="help-block" style="color:red;"><?php echo $errors['sale'];?></div>
-                                                <?php endif ?>
+                                            <div class="help-block" style="color:red;"><?php echo $errors['sale'];?>
+                                            </div>
+                                            <?php endif ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Ảnh</label>
+                                            <input type="file" name="image">
+                                        </div>
+                                        <a href="products.php" type="button" class="btn btn-danger"><i
+                                                class="fas fa-arrow-left-long"></i>Quay lại</a>
+                                        <button type="submit" style="margin-left: 310px;" class="btn btn-primary"><i
+                                                class="fa fa-plus"></i>Thêm
+                                            mới</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="">Ảnh</label>
-                                        <input type="file" name="image">
-                                    </div>
-                                    <a href="products.php" type="button" class="btn btn-danger"><i class="fas fa-arrow-left-long"></i>Quay lại</a>
-                                    <button type="submit" style="margin-left: 310px;" class="btn btn-primary"><i class="fa fa-plus"></i>Thêm
-                                        mới</button>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
                 </form>
 
             </div>

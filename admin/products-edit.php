@@ -10,6 +10,7 @@ if(isset($_POST['name'])){
     $name = $_POST['name'];
     $price = $_POST['price'];
     $sale = $_POST['sale'] ? $_POST['sale'] : 0;
+    $quantity = $_POST['quantity'];
     $descriptions = $_POST['descriptions'];
     $category_id = $_POST['category_id'];
 
@@ -29,6 +30,11 @@ if(isset($_POST['name'])){
     } else if(!is_numeric($price)){
         $errors['price'] = 'Giá sản phẩm phải là số';
     }
+    if($quantity == ''){
+        $errors['quantity'] = 'Số lượng sản phẩm không được để trống'; 
+        } else if(!is_numeric($quantity)){
+            $errors['quantity'] = 'Số lượng sản phẩm phải là số';
+        }
     if($sale && !is_numeric($sale)){
         $errors['sale'] = 'Giá khuyến mãi phải là số';
     } else if($sale && $sale > 100){
@@ -65,7 +71,7 @@ if(isset($_POST['name'])){
                                     <div class="form-group">
                                         <label for="">Mô tả</label>
                                         <textarea name="descriptions" id="" cols="30" rows="10"
-                                            style="width: 1052px; height: 244px;"
+                                            style="width: 1050px; height: 318px;"
                                             placeholder="Nhập mô tả sản phẩm"><?php echo $prod->descriptions;?></textarea>
                                     </div>
                                 </div>
@@ -107,6 +113,14 @@ if(isset($_POST['name'])){
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Số lượng</label>
+                                    <input type="text" value="<?php echo $prod->quantity;?>" class="form-control"
+                                        name="quantity" id="" placeholder="Nhập số lượng">
+                                    <?php if(isset($errors['quantity'])) : ?>
+                                    <div class="help-block" style="color:red;"><?php echo $errors['quantity'];?></div>
+                                    <?php endif ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Giá</label>
